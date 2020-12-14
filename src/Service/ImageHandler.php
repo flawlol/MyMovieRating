@@ -18,7 +18,6 @@ class ImageHandler
 
     public function save(string $newThumbnailImage, string $originalThumbnailImage): void
     {
-        //TODO: Kép mentése
         if (!$this->filesystem->exists('images/' . $newThumbnailImage)) {
             $this->addImageToImagesFolder($newThumbnailImage, $originalThumbnailImage);
         }
@@ -26,6 +25,6 @@ class ImageHandler
 
     public function addImageToImagesFolder(string $newThumbnailImage, string $originalThumbnailImage)
     {
-        file_put_contents('images/' . $newThumbnailImage, file_get_contents($originalThumbnailImage));
+        $this->filesystem->copy($originalThumbnailImage, 'images/' . $newThumbnailImage);
     }
 }
