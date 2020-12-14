@@ -15,7 +15,6 @@ class MovieController extends AbstractController
     private MovieService $movieService;
 
 
-
     public function __construct(MovieService $movieService)
     {
 
@@ -27,7 +26,7 @@ class MovieController extends AbstractController
      */
     public function show(int $id): JsonResponse
     {
-        /// a remote_id vel nem fogunk dolgozni, csak a lekérésnél, tehát a findnál // itt nem
+        //TODO finish
     }
 
     /**
@@ -50,23 +49,5 @@ class MovieController extends AbstractController
             ];
         }
         return $this->json($moviesArray);
-
-        // még itt sem feltétlenül foglalkozunk vele, mert itt az a cél, hogy lekérjük név alapján
-
-        /*$entityManager = $this->getDoctrine()->getManager();
-        $product = $entityManager->getRepository(Movie::class)->findBy(['id' => 1]);
-
-        foreach ($product as $test) {
-            $test->setMovieRemoteId('New proeeduct name!')->setUrl('asdfffasd');
-            $entityManager->flush();
-        }*/
-
-        //return $this->json($movies);
-
-        //return New Response(null,Response::HTTP_OK);
-        // // ha lehet nem hozunk létre new -val osztályt soha, csak ha nem elkerülhető
-        // ok: töri az elvet miszerint: single responsibility  - az egyik alapelve a cleancodenak
-
-        //dd($product->setMovieRemoteId('New product name!'));
     }
 }

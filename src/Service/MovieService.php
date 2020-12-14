@@ -7,6 +7,7 @@ use App\Repository\MovieRepository;
 use App\Service\RemoteApi\MovieFinder;
 use Doctrine\ORM\EntityManagerInterface;
 use PoLaKoSz\Mafab\Models\MafabMovie;
+use Psr\Log\LoggerInterface;
 
 class MovieService
 {
@@ -15,48 +16,18 @@ class MovieService
     private MovieFinder $movieFinder;
     private ImageHandler $imageHandler;
 
-    ///// symfony esetén nem kell kiirni a service neve után hogy service, hanem elég a funkcionalitását megfogalmazni 1-2 szóban. bár itt ennél a MovieServicenél
-    // igy JÓ!!!!
-
     public function __construct(
         MovieRepository $moviesRepository,
         EntityManagerInterface $entityManager,
         MovieFinder $movieFinder,
-        ImageHandler $imageHandler)
+        ImageHandler $imageHandler,
+        LoggerInterface $logger)
     {
         $this->movieRepository = $moviesRepository;
         $this->entityManager = $entityManager;
         $this->movieFinder = $movieFinder;
         $this->imageHandler = $imageHandler;
-    }
-
-
-    public function test()
-    {
-
-
-        //$entityManager1 = $this->getDoctrine()->getManager();
-        $test = $this->movieRepository->findById(1);
-
-        //$mafab = new Mafab();
-        //$search = $mafab->search(); // @return PoLaKoSz\Mafab\EndPoints\SearchEndpointInterface
-
-        //$results = $search->quicklyFor('Avatar');
-
-        // Igazából azt akartam hogy megnézze, hogy létezik-e az adatbázisban már vagy sem. (A movie_remote_Id alapján)
-        // ez egy "egyszerű" findOrCreate, csak itt neked kell implementálni a funkcióját
-
-        //$this->movieRepository->save($results);
-
-        $test->setUrl('test1');
-
-
-        //return '1';
-    }
-
-    public function findOrCreateMovie(): Movie
-    {
-
+        $this->logger = $logger;
     }
 
     /**
@@ -75,9 +46,18 @@ class MovieService
             $movieList[] = $this->movieRepository->findOrCreate($movie);
 
             try {
-                $this->imageHandler->save($mafabMovie->getID().'.jpg',$mafabMovie->getThumbnailImage());
+                $this->imageHandler->save($mafabMovie->getID() . '.jpg', $mafabMovie->getThumbnailImage());
+                throw new \Exception('Test exception');
             } catch (\Exception $exception) {
                 // TODO: $this->logger ......   (LoggerInterface)
+                $this->logger->error(
+                    'Failed to save image',
+                    [
+                        'link' => $mafabMovie->getThumbnailImage(),
+                        'remote_id' => $mafabMovie->getID(),
+                        'exception' => $exception
+                    ]
+                );
             }
         }
 
@@ -95,5 +75,4 @@ class MovieService
             ->setYear($mafabMovie->getYear())
             ->setThumbnailImage($mafabMovie->getID() . '.jpg');
     }
-
 }
