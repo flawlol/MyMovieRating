@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Movie;
-use App\Entity\MovieRating;
 use App\Form\MovieRatingType;
 use App\Service\Movie\Rating\FormHandler;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,16 +16,8 @@ use Twig\Environment;
  */
 class MovieRatingController extends AbstractController
 {
-
-    /**
-     * @var MovieRatingType
-     */
     private MovieRatingType $movieRatingType;
-    /**
-     * @var FormHandler
-     */
     private FormHandler $formHandler;
-
 
     public function __construct(MovieRatingType $movieRatingType, FormHandler $formHandler)
     {
@@ -35,33 +25,6 @@ class MovieRatingController extends AbstractController
         $this->movieRatingType = $movieRatingType;
         $this->formHandler = $formHandler;
     }
-
-    /**
-     * @Route("rating", name="movie_rating", methods={"POST"})
-     */
-    public function index(Request $request): Response
-    {
-
-        $form->handleRequest($request);
-        if ($request->isMethod('POST')) {
-            //dd($request->get('visual'));
-            if ($form->isSubmitted() && $form->isValid()) {
-                dd('valid');
-                $movie = $form->getData();
-                dd(1);
-
-                // $this->entityManager->persist($task);
-                // $this->entityManager->flush();
-            }
-        }
-        // $formHandler->handleRequest($request);
-
-        //     if ($formHandler->isSubmitted()) {
-        //         $formHandler->handle();
-        //    }
-        return $this->json(null, 200);
-    }
-
 
     /**
      * @Route("{movieId}", name="form", methods={"GET"})

@@ -5,7 +5,6 @@ namespace App\Service\Movie\Rating;
 use App\Entity\MovieRating;
 use App\Form\MovieRatingType;
 use App\Repository\MovieRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormInterface;
@@ -63,7 +62,6 @@ class FormHandler extends AbstractController
     {
         $entity = $this->initializeEntity();
         $movie = $this->findMovieById($movieId);
-        //$now = $this->getNowDateTime();
 
         $entity->setMovie($movie);
 
@@ -76,11 +74,6 @@ class FormHandler extends AbstractController
     public function findMovieById(int $id)
     {
         return $this->movieRepository->findById($id);
-    }
-
-    public function getNowDateTime(): DateTime
-    {
-        return new DateTime("now");
     }
 
     public function isMethodPost(Request $request): bool
