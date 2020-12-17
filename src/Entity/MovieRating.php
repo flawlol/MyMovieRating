@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MovieRatingRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -16,11 +17,6 @@ class MovieRating
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $movie_id;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
@@ -56,6 +52,19 @@ class MovieRating
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $created_at;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Movie::class, inversedBy="ratings")
+     */
+    private $movie;
+
+    /**
+     * MovieRating constructor.
+     */
+    public function __construct()
+    {
+        $this->setCreatedAt(new DateTime());
+    }
 
     public function getId(): ?int
     {
@@ -154,6 +163,18 @@ class MovieRating
     public function setCreatedAt(?\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getMovie(): ?Movie
+    {
+        return $this->movie;
+    }
+
+    public function setMovie(?Movie $movie): self
+    {
+        $this->movie = $movie;
 
         return $this;
     }

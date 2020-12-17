@@ -19,6 +19,10 @@ class MovieRepository extends ServiceEntityRepository
         parent::__construct($registry, Movie::class);
     }
 
+
+    //TODO: https://stackoverflow.com/questions/20023426/symfony-doctrine-sum-and-avg-score-of-players
+
+
     public function save($value): void
     {
         $this->getEntityManager()->persist($value);
