@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\MovieRatingRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=MovieRatingRepository::class)
@@ -19,6 +20,12 @@ class MovieRating
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 10,
+     *     minMessage="Minimum value must be equal to 1, or higher",
+     *     maxMessage="Maximum value must be equal to 10, or lower"
+     * )
      */
     private $movie_id;
 
@@ -29,31 +36,62 @@ class MovieRating
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 10,
+     *     minMessage="Minimum value must be equal to 1, or higher",
+     *     maxMessage="Maximum value must be equal to 10, or lower",
+     * )
      */
     private $visual;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 10,
+     *     minMessage="Minimum value must be equal to 1, or higher",
+     *     maxMessage="Maximum value must be equal to 10, or lower",
+     * )
      */
     private $story;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 10,
+     *     minMessage="Minimum value must be equal to 1, or higher",
+     *     maxMessage="Maximum value must be equal to 10, or lower",
+     * )
      */
     private $entertainment_value;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 10,
+     *     minMessage="Minimum value must be equal to 1, or higher",
+     *     maxMessage="Maximum value must be equal to 10, or lower",
+     * )
      */
     private $historical_fidelity;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Range(
+     *     min = 1,
+     *     max = 10,
+     *     minMessage="Minimum value must be equal to 1, or higher",
+     *     maxMessage="Maximum value must be equal to 10, or lower",
+     * )
      */
     private $overall;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
+     *
      */
     private $created_at;
 
