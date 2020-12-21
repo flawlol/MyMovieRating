@@ -8,4 +8,3 @@ App\Entity\MovieRating:
     historical_fidelity: <numberBetween(1, 10)>
     overall: <numberBetween(1, 10)>
     created_at: <dateTime()>
-
