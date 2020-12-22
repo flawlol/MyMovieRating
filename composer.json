@@ -70,6 +70,7 @@
         }
     },
     "require-dev": {
+        "hautelook/alice-bundle": "^2.8",
         "symfony/debug-bundle": "5.2.*",
         "symfony/maker-bundle": "^1.25",
         "symfony/phpunit-bridge": "^5.2"

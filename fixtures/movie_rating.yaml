@@ -1,6 +1,6 @@
 App\Entity\MovieRating:
   movie_rating{1..10}:
-    movie: '@movie*'
+    movie: '@movie_entity*'
     acting: <numberBetween(1, 10)>
     visual: <numberBetween(1, 10)>
     story: <numberBetween(1, 10)>
