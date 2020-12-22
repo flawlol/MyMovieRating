@@ -108,18 +108,6 @@ class MovieRating
         return $this->id;
     }
 
-    public function getMovieId(): ?int
-    {
-        return $this->movie_id;
-    }
-
-    public function setMovieId(?int $movie_id): self
-    {
-        $this->movie_id = $movie_id;
-
-        return $this;
-    }
-
     public function getActing(): ?int
     {
         return $this->acting;
@@ -209,7 +197,7 @@ class MovieRating
         return $this->movie;
     }
 
-    public function setMovie(?Movie $movie): self
+    public function setMovie( $movie): self
     {
         $this->movie = $movie;
 
