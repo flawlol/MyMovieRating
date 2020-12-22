@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\MovieRatingRepository;
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -27,11 +28,6 @@ class MovieRating
      *     maxMessage="Maximum value must be equal to 10, or lower"
      * )
      */
-    private $movie_id;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
     private $acting;
 
     /**
@@ -40,7 +36,7 @@ class MovieRating
      *     min = 1,
      *     max = 10,
      *     minMessage="Minimum value must be equal to 1, or higher",
-     *     maxMessage="Maximum value must be equal to 10, or lower",
+     *     maxMessage="Maximum value must be equal to 10, or lower"
      * )
      */
     private $visual;
@@ -51,7 +47,7 @@ class MovieRating
      *     min = 1,
      *     max = 10,
      *     minMessage="Minimum value must be equal to 1, or higher",
-     *     maxMessage="Maximum value must be equal to 10, or lower",
+     *     maxMessage="Maximum value must be equal to 10, or lower"
      * )
      */
     private $story;
@@ -62,7 +58,7 @@ class MovieRating
      *     min = 1,
      *     max = 10,
      *     minMessage="Minimum value must be equal to 1, or higher",
-     *     maxMessage="Maximum value must be equal to 10, or lower",
+     *     maxMessage="Maximum value must be equal to 10, or lower"
      * )
      */
     private $entertainment_value;
@@ -73,7 +69,7 @@ class MovieRating
      *     min = 1,
      *     max = 10,
      *     minMessage="Minimum value must be equal to 1, or higher",
-     *     maxMessage="Maximum value must be equal to 10, or lower",
+     *     maxMessage="Maximum value must be equal to 10, or lower"
      * )
      */
     private $historical_fidelity;
@@ -84,16 +80,28 @@ class MovieRating
      *     min = 1,
      *     max = 10,
      *     minMessage="Minimum value must be equal to 1, or higher",
-     *     maxMessage="Maximum value must be equal to 10, or lower",
+     *     maxMessage="Maximum value must be equal to 10, or lower"
      * )
      */
     private $overall;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
-     *
      */
     private $created_at;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Movie::class, inversedBy="ratings")
+     */
+    private $movie;
+
+    /**
+     * MovieRating constructor.
+     */
+    public function __construct()
+    {
+        $this->setCreatedAt(new DateTime());
+    }
 
     public function getId(): ?int
     {
@@ -192,6 +200,18 @@ class MovieRating
     public function setCreatedAt(?\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getMovie(): ?Movie
+    {
+        return $this->movie;
+    }
+
+    public function setMovie(?Movie $movie): self
+    {
+        $this->movie = $movie;
 
         return $this;
     }

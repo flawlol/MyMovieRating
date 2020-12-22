@@ -58,7 +58,6 @@ class FormHandler extends AbstractController
         return $form->isSubmitted() && $form->isValid();
     }
 
-
     public function persistData(EntityManagerInterface $entityManager, Request $request, int $movieId): void
     {
         $entity = $this->initializeEntity();
@@ -70,8 +69,6 @@ class FormHandler extends AbstractController
 
         $entityManager->persist($entity);
         $entityManager->flush();
-
-
     }
 
     public function findMovieById(int $id)

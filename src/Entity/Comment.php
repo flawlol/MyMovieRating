@@ -18,11 +18,6 @@ class Comment
     private $id;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $movie_id;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $comment;
@@ -37,21 +32,14 @@ class Comment
      */
     private $created_at;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Movie::class, inversedBy="comments")
+     */
+    private $movie;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getMovieId(): ?int
-    {
-        return $this->movie_id;
-    }
-
-    public function setMovieId(int $movie_id): self
-    {
-        $this->movie_id = $movie_id;
-
-        return $this;
     }
 
     public function getComment(): ?string
@@ -86,6 +74,18 @@ class Comment
     public function setCreatedAt(?\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getMovie(): ?Movie
+    {
+        return $this->movie;
+    }
+
+    public function setMovie(?Movie $movie): self
+    {
+        $this->movie = $movie;
 
         return $this;
     }

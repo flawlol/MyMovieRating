@@ -13,12 +13,18 @@
         "doctrine/orm": "^2.8",
         "polakosz/mafab": "^2.0",
         "sensio/framework-extra-bundle": "^5.6",
+        "symfony/browser-kit": "5.2.*",
         "symfony/console": "5.2.*",
         "symfony/dotenv": "5.2.*",
         "symfony/flex": "^1.3.1",
+        "symfony/form": "5.2.*",
         "symfony/framework-bundle": "5.2.*",
-        "symfony/monolog-bundle": "^3.6",
-        "symfony/yaml": "5.2.*"
+        "symfony/monolog-bundle": "^3.7.0",
+        "symfony/twig-bundle": "5.2.*",
+        "symfony/validator": "5.2.*",
+        "symfony/yaml": "5.2.*",
+        "twig/extra-bundle": "^2.12|^3.0",
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "optimize-autoloader": true,
@@ -64,7 +70,8 @@
         }
     },
     "require-dev": {
-        "hautelook/alice-bundle": "^2.8",
-        "symfony/maker-bundle": "^1.25"
+        "symfony/debug-bundle": "5.2.*",
+        "symfony/maker-bundle": "^1.25",
+        "symfony/phpunit-bridge": "^5.2"
     }
 }

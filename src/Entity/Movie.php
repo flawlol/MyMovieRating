@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\MoviesRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -41,10 +43,27 @@ class Movie
      * @ORM\Column(type="string", nullable=true)
      */
     private $movie_year;
+
     /**
      * @ORM\Column(type="string", nullable=true)
      */
     private $movie_thumbnail_image;
+
+    /**
+     * @ORM\OneToMany(targetEntity=MovieRating::class, mappedBy="movie")
+     */
+    private $ratings;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="movie")
+     */
+    private $comments;
+
+    public function __construct()
+    {
+        $this->ratings = new ArrayCollection();
+        $this->comments = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -119,6 +138,66 @@ class Movie
     public function setThumbnailImage(?string $movie_thumbnail_image): self
     {
         $this->movie_thumbnail_image = $movie_thumbnail_image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MovieRating[]
+     */
+    public function getRatings(): Collection
+    {
+        return $this->ratings;
+    }
+
+    public function addRating(MovieRating $rating): self
+    {
+        if (!$this->ratings->contains($rating)) {
+            $this->ratings[] = $rating;
+            $rating->setMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRating(MovieRating $rating): self
+    {
+        if ($this->ratings->removeElement($rating)) {
+            // set the owning side to null (unless already changed)
+            if ($rating->getMovie() === $this) {
+                $rating->setMovie(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setMovie($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getMovie() === $this) {
+                $comment->setMovie(null);
+            }
+        }
 
         return $this;
     }

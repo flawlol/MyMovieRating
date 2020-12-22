@@ -35,7 +35,7 @@ class MovieRatingRepository extends ServiceEntityRepository
                 avg(m.overall) as overall,
                 count(m.id) as quantity
                 ')
-            ->andWhere('m.movie_id = :id')
+            ->andWhere('m.movie = :id')
             ->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult();
