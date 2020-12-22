@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Twig\Environment;
+use App\Repository\MovieRatingRepository;
 
 /**
  * @Route("api/ratings/", name="movie_rating/")
@@ -18,20 +19,14 @@ class MovieRatingController extends AbstractController
 {
     private MovieRatingType $movieRatingType;
     private FormHandler $formHandler;
+    private MovieRatingRepository $movieRatingRepository;
 
-    public function __construct(MovieRatingType $movieRatingType, FormHandler $formHandler)
+    public function __construct(MovieRatingType $movieRatingType, FormHandler $formHandler, MovieRatingRepository $movieRatingRepository)
     {
 
         $this->movieRatingType = $movieRatingType;
         $this->formHandler = $formHandler;
-    }
-
-    /**
-     * @Route("{movieId}", name="form", methods={"GET"})
-     */
-    public function returnView(Environment $twig): Response
-    {
-        return $this->formHandler->createFormView($twig);
+        $this->movieRatingRepository = $movieRatingRepository;
     }
 
     /**
@@ -44,5 +39,18 @@ class MovieRatingController extends AbstractController
             return $this->json(null, Response::HTTP_OK);
         }
         return $this->json(null, Response::HTTP_FORBIDDEN);
+    }
+
+
+    /**
+     * @Route("{movieId}", name="Movie Rating ID (get)")
+     */
+    public function getRating(int $movieId): Response
+    {
+        if ($this->movieRatingRepository->getAvgOfMovie($movieId)) {
+            return $this->json($this->movieRatingRepository->getAvgOfMovie($movieId), Response::HTTP_OK);
+        } else {
+            return $this->json(null, Response::HTTP_NOT_FOUND);
+        }
     }
 }
