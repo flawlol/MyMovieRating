@@ -1,0 +1,10 @@
+App\Entity\MovieRating:
+  movie_rating{1..10}:
+    movie: '@movie*'
+    acting: <numberBetween(1, 10)>
+    visual: <numberBetween(1, 10)>
+    story: <numberBetween(1, 10)>
+    entertainment_value: <numberBetween(1, 10)>
+    historical_fidelity: <numberBetween(1, 10)>
+    overall: <numberBetween(1, 10)>
+    created_at: <dateTime()>
