@@ -7,6 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * @Route("/api/movies", name="movie_")
+ */
 class MovieController extends AbstractController
 {
     /**
@@ -22,7 +25,7 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/movie/{name}", name="movie")
+     * @Route("/{name}", name="movie")
      */
     public function show(int $id): JsonResponse
     {
@@ -30,7 +33,7 @@ class MovieController extends AbstractController
     }
 
     /**
-     * @Route("/movie/find/{name}", name="movie")
+     * @Route("/find/{name}", name="movie")
      */
     public function find(string $name): JsonResponse
     {
