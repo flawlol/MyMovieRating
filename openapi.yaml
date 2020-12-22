@@ -1,0 +1,75 @@
+swagger: "2.0"
+info:
+  description: ""
+  version: "1.0.0"
+  title: "My-Movie-Rating"
+schemes:
+- "https"
+paths:
+  /movie/find/{name}:
+    get:
+      parameters:
+      - name: "name"
+        in: "path"
+        description: "Name of movies to return"
+        required: true
+        type: "integer"
+        format: "int64"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Movie"
+        "404":
+          description: "Not found"
+  
+definitions:
+  Movie:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      remote_id:
+        type: "integer"
+      title:
+        type: "string"
+      original_title:
+        type: "string"
+      year:
+        type: "integer"
+      image_url:
+        type: "string"
+      seen: 
+        type: "boolean"
+      avg_ratings:
+        $ref: '#/definitions/Rating'
+      comments:
+        $ref: '#/definitions/Comment'
+  Rating:
+    type: "object"
+    properties:
+      acting:
+        type: "integer"
+      visual:
+        type: "integer"
+      story:
+        type: "integer"
+      entertainment_value:
+        type: "integer"
+      historical_fidelity:
+        type: "integer"
+      overall:
+        type: "integer"
+  Comment:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      comment:
+        type: "string"
