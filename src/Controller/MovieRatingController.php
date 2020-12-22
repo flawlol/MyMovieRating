@@ -41,6 +41,7 @@ class MovieRatingController extends AbstractController
     {
         if ($this->formHandler->isMethodPost($request) && $this->formHandler->requestIsValidated($request)) {
             $this->formHandler->persistData($entityManager, $request, $movieId);
+            return $this->json(null, Response::HTTP_OK);
         }
         return $this->json(null, Response::HTTP_FORBIDDEN);
     }

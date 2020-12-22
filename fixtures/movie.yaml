@@ -1,0 +1,8 @@
+App\Entity\Movie:
+  movie{1..10}:
+    movie_remote_id: <numberBetween(1, 200)>
+    url: <url()>
+    hungarian_title: <word()>
+    original_title: <word()>
+    year: <year()>
+    thumbnail_image: <url()>
