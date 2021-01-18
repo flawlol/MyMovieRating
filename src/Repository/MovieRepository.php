@@ -56,4 +56,29 @@ class MovieRepository extends ServiceEntityRepository
         }
         return $selectedMovie;
     }
+
+    public function transform(Movie $movie)
+    {
+        return [
+            'id' => (int)$movie->getId(),
+            'remote_id' => (int)$movie->getMovieRemoteId(),
+            'url' => (string)$movie->getUrl(),
+            'hungarian_title' => (string)$movie->getHungarianTitle(),
+            'original_title' => (string)$movie->getOriginalTitle(),
+            'year' => (string)$movie->getYear(),
+            'thumbnail_image' => (string)$movie->getThumbnailImage(),
+        ];
+    }
+
+    public function transformAll()
+    {
+        $movies = $this->findAll();
+        $moviesArray = [];
+
+        foreach ($movies as $movie) {
+            $moviesArray[] = $this->transform($movie);
+        }
+
+        return $moviesArray;
+    }
 }
